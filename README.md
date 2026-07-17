@@ -1,32 +1,37 @@
 # Daily Tagalog
 
-A production-style Next.js starter with Supabase email authentication and cloud-synced lesson progress.
+A cloud-backed conversational Tagalog learning app built with Next.js and Supabase.
 
-## 1. Supabase
-1. Create a project at Supabase.
-2. Open SQL Editor, copy `supabase/schema.sql`, and run it.
-3. In Authentication > URL Configuration, set Site URL to your Vercel URL. Add `http://localhost:3000/auth/callback` for local testing.
-4. Copy the Project URL and Publishable key.
+## Included
 
-## 2. Environment variables
-Copy `.env.example` to `.env.local` and fill in both values.
-On Vercel, add the same values under Project Settings > Environment Variables.
+- Email/password accounts through Supabase Auth
+- Protected dashboard
+- Cloud-synced lesson progress
+- Interactive Lesson 1: vocabulary, grammar, translation practice, reading, and speaking prompt
+- Responsive mobile and desktop layout
 
-## 3. Run locally
+## Environment variables
+
+Create these in `.env.local` locally and in the Vercel project settings:
+
+```bash
+NEXT_PUBLIC_SUPABASE_URL=https://YOUR_PROJECT.supabase.co
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=YOUR_PUBLISHABLE_KEY
+```
+
+## Supabase setup
+
+Run `schema.sql` once in the Supabase SQL Editor.
+
+## Development
+
 ```bash
 npm install
 npm run dev
 ```
-Open http://localhost:3000.
 
-## 4. Deploy
-Upload this project to a GitHub repository, import it into Vercel, add the environment variables, and deploy.
+## Production check
 
-## Current features
-- Responsive landing page
-- Email/password signup and login
-- Username stored in auth metadata
-- Protected dashboard
-- Cloud-synced lesson progress
-- Row Level Security
-- Sign out
+```bash
+npm run build
+```

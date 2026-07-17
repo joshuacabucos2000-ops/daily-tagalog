@@ -1,3 +1,34 @@
 'use client';
-import {useState} from 'react';import {createClient} from '@/lib/supabase/client';
-export default function ProgressClient({initial}:{initial:number}){const [progress,setProgress]=useState(initial);const [saving,setSaving]=useState(false);async function complete(){setSaving(true);const next=Math.min(100,progress+20);const supabase=createClient();const {data:{user}}=await supabase.auth.getUser();if(user)await supabase.from('progress').upsert({user_id:user.id,lesson_id:'lesson-1',percent_complete:next,updated_at:new Date().toISOString()});setProgress(next);setSaving(false)}return <div className="card"><h3>Today’s lesson</h3><div className="progress"><span style={{width:`${progress}%`}}/></div><p className="tiny">{progress}% complete</p>{['Vocabulary: daily activities','Grammar: na vs pa','Sentence building','Short story','Conversation prompt'].map((x,i)=><div className="lesson-row" key={x}><span>{i*20<progress?'✓':'○'} {x}</span><span className="tiny">{i===0?'4 min':'5 min'}</span></div>)}<button className="button" onClick={complete} disabled={saving||progress===100}>{progress===100?'Lesson complete':saving?'Saving…':'Complete next activity'}</button></div>}
+
+import Link from 'next/link';
+
+const activities = [
+  'Vocabulary: daily activities',
+  'Grammar: na vs pa',
+  'Sentence building',
+  'Short story and speaking prompt',
+  'Lesson complete',
+];
+
+export default function ProgressClient({ initial }: { initial: number }) {
+  const action = initial === 0 ? 'Start Lesson 1' : initial === 100 ? 'Review Lesson 1' : 'Continue Lesson 1';
+
+  return (
+    <div className="card">
+      <div className="card-heading-row">
+        <div><p className="tiny eyebrow">TODAY&apos;S LESSON</p><h2>Talking about your day</h2></div>
+        <span className="lesson-number">01</span>
+      </div>
+      <p>Build a natural answer to <strong>“Kumusta ang araw mo?”</strong> using everyday verbs and <em>na</em> versus <em>pa</em>.</p>
+      <div className="progress"><span style={{ width: `${initial}%` }} /></div>
+      <p className="tiny">{initial}% complete</p>
+      {activities.map((activity, index) => (
+        <div className="lesson-row" key={activity}>
+          <span>{index * 20 < initial || initial === 100 ? '✓' : '○'} {activity}</span>
+          <span className="tiny">{index === 0 ? '4 min' : index === 4 ? 'Done' : '5 min'}</span>
+        </div>
+      ))}
+      <Link className="button dashboard-lesson-button" href="/lesson/lesson-1">{action}</Link>
+    </div>
+  );
+}
