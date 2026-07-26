@@ -75,7 +75,7 @@ export default async function Dashboard() {
   }
 
   return (
-    <main className="shell">
+    <main className="shell dashboard-shell">
       <nav className="nav"><div className="nav-start"><AppMenu /><Link className="brand" href="/dashboard">Daily Tagalog</Link></div><form action={signOut}><button className="button secondary">Sign out</button></form></nav>
       <div className="dash-head">
         <div><p className="tiny eyebrow">MAGANDANG ARAW</p><h1>Welcome, {username}!</h1><p>A little practice today keeps yesterday’s Tagalog within reach.</p></div>
