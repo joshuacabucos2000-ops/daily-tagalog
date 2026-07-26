@@ -9,7 +9,7 @@ export type VocabularyItem = {
 export const vocabulary: VocabularyItem[] = [
   { id: 'gumising', tagalog: 'gumising', english: 'to wake up', example: 'Maaga akong gumising.', exampleEnglish: 'I woke up early.' },
   { id: 'kumain', tagalog: 'kumain', english: 'to eat / ate', example: 'Kumain na ako.', exampleEnglish: 'I already ate.' },
-  { id: 'magtrabaho', tagalog: 'magtrabaho', english: 'to work', example: 'Kailangan kong magtrabaho.', exampleEnglish: 'I need to work.' },
+  { id: 'nagtrabaho', tagalog: 'nagtrabaho', english: 'worked', example: 'Nagtrabaho ako buong araw.', exampleEnglish: 'I worked all day.' },
   { id: 'umuwi', tagalog: 'umuwi', english: 'to go home / went home', example: 'Umuwi ako nang alas-sais.', exampleEnglish: 'I went home at six.' },
   { id: 'pagod', tagalog: 'pagod', english: 'tired', example: 'Pagod ako ngayon.', exampleEnglish: 'I am tired now.' },
   { id: 'mamaya', tagalog: 'mamaya', english: 'later', example: 'Magluluto ako mamaya.', exampleEnglish: 'I will cook later.' },
