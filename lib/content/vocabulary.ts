@@ -1,5 +1,6 @@
 export type VocabularyItem = {
   id: string;
+  lessonId: string;
   tagalog: string;
   english: string;
   example: string;
@@ -7,18 +8,24 @@ export type VocabularyItem = {
 };
 
 export const vocabulary: VocabularyItem[] = [
-  { id: 'gumising', tagalog: 'gumising', english: 'to wake up', example: 'Maaga akong gumising.', exampleEnglish: 'I woke up early.' },
-  { id: 'kumain', tagalog: 'kumain', english: 'to eat / ate', example: 'Kumain na ako.', exampleEnglish: 'I already ate.' },
-  { id: 'nagtrabaho', tagalog: 'nagtrabaho', english: 'worked', example: 'Nagtrabaho ako buong araw.', exampleEnglish: 'I worked all day.' },
-  { id: 'umuwi', tagalog: 'umuwi', english: 'to go home / went home', example: 'Umuwi ako nang alas-sais.', exampleEnglish: 'I went home at six.' },
-  { id: 'pagod', tagalog: 'pagod', english: 'tired', example: 'Pagod ako ngayon.', exampleEnglish: 'I am tired now.' },
-  { id: 'mamaya', tagalog: 'mamaya', english: 'later', example: 'Magluluto ako mamaya.', exampleEnglish: 'I will cook later.' },
-  { id: 'ngayon', tagalog: 'ngayon', english: 'now / today', example: 'Abala ako ngayon.', exampleEnglish: 'I am busy now.' },
-  { id: 'kahapon', tagalog: 'kahapon', english: 'yesterday', example: 'Naglakad kami kahapon.', exampleEnglish: 'We walked yesterday.' },
-  { id: 'bukas', tagalog: 'bukas', english: 'tomorrow', example: 'Magkikita tayo bukas.', exampleEnglish: 'We will see each other tomorrow.' },
-  { id: 'masaya', tagalog: 'masaya', english: 'happy', example: 'Masaya ako para sa iyo.', exampleEnglish: 'I am happy for you.' },
-  { id: 'bahay', tagalog: 'bahay', english: 'house / home', example: 'Tahimik ang bahay.', exampleEnglish: 'The house is quiet.' },
-  { id: 'palengke', tagalog: 'palengke', english: 'public market', example: 'Pupunta ako sa palengke.', exampleEnglish: 'I am going to the market.' },
+  { id: 'gumising', lessonId: 'lesson-1', tagalog: 'gumising', english: 'to wake up', example: 'Maaga akong gumising.', exampleEnglish: 'I woke up early.' },
+  { id: 'kumain', lessonId: 'lesson-1', tagalog: 'kumain', english: 'to eat / ate', example: 'Kumain na ako.', exampleEnglish: 'I already ate.' },
+  { id: 'nagtrabaho', lessonId: 'lesson-1', tagalog: 'nagtrabaho', english: 'worked', example: 'Nagtrabaho ako buong araw.', exampleEnglish: 'I worked all day.' },
+  { id: 'umuwi', lessonId: 'lesson-1', tagalog: 'umuwi', english: 'to go home / went home', example: 'Umuwi ako nang alas-sais.', exampleEnglish: 'I went home at six.' },
+  { id: 'pagod', lessonId: 'lesson-1', tagalog: 'pagod', english: 'tired', example: 'Pagod ako ngayon.', exampleEnglish: 'I am tired now.' },
+  { id: 'mamaya', lessonId: 'lesson-1', tagalog: 'mamaya', english: 'later', example: 'Magluluto ako mamaya.', exampleEnglish: 'I will cook later.' },
+  { id: 'pangalan', lessonId: 'lesson-2', tagalog: 'pangalan', english: 'name', example: 'Ang pangalan ko ay Mia.', exampleEnglish: 'My name is Mia.' },
+  { id: 'kumusta', lessonId: 'lesson-2', tagalog: 'kumusta', english: 'how are you?', example: 'Kumusta ka?', exampleEnglish: 'How are you?' },
+  { id: 'taga-saan', lessonId: 'lesson-2', tagalog: 'taga-saan', english: 'from where?', example: 'Taga-saan ka?', exampleEnglish: 'Where are you from?' },
+  { id: 'nakatira', lessonId: 'lesson-2', tagalog: 'nakatira', english: 'living / residing', example: 'Nakatira ako sa Brisbane.', exampleEnglish: 'I live in Brisbane.' },
+  { id: 'trabaho', lessonId: 'lesson-2', tagalog: 'trabaho', english: 'work / job', example: 'Ano ang trabaho mo?', exampleEnglish: 'What is your job?' },
+  { id: 'kaibigan', lessonId: 'lesson-2', tagalog: 'kaibigan', english: 'friend', example: 'Kaibigan ko si Ana.', exampleEnglish: 'Ana is my friend.' },
+  { id: 'pagkain', lessonId: 'lesson-3', tagalog: 'pagkain', english: 'food', example: 'Masarap ang pagkain.', exampleEnglish: 'The food is delicious.' },
+  { id: 'inumin', lessonId: 'lesson-3', tagalog: 'inumin', english: 'drink / beverage', example: 'Ano ang gusto mong inumin?', exampleEnglish: 'What would you like to drink?' },
+  { id: 'kanin', lessonId: 'lesson-3', tagalog: 'kanin', english: 'cooked rice', example: 'Oorder po ako ng kanin.', exampleEnglish: 'I will order rice.' },
+  { id: 'tubig', lessonId: 'lesson-3', tagalog: 'tubig', english: 'water', example: 'Pahingi po ng tubig.', exampleEnglish: 'May I have some water, please?' },
+  { id: 'masarap', lessonId: 'lesson-3', tagalog: 'masarap', english: 'delicious', example: 'Masarap ang adobo.', exampleEnglish: 'The adobo is delicious.' },
+  { id: 'bayad', lessonId: 'lesson-3', tagalog: 'bayad', english: 'payment / bill', example: 'Pahingi po ng bill.', exampleEnglish: 'May I have the bill, please?' },
 ];
 
 export const listeningPrompts = [

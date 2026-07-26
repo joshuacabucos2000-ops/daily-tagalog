@@ -11,3 +11,6 @@ a{text-decoration:none;color:inherit}.eyebrow{letter-spacing:.12em;font-weight:8
 
 /* Reusable lesson details */
 .step-tab:disabled{opacity:.55;cursor:not-allowed}.vocab-audio-list{display:flex;gap:8px;flex-wrap:wrap;margin-top:-10px;margin-bottom:20px}.story-audio{margin:-8px 0 22px}
+
+/* Course overview */
+.course-heading{display:flex;justify-content:space-between;align-items:flex-end;gap:18px;margin:0 0 12px}.course-heading h2{font-size:30px;margin:4px 0}.course-list{display:grid;gap:12px}.lesson-card.compact{padding:20px}.lesson-card.compact .card-heading-row h2{font-size:22px}.lesson-card.compact .lesson-number{font-size:30px}.lesson-card.compact .dashboard-lesson-button{margin-top:10px}.lesson-card.compact>p{color:var(--muted)}

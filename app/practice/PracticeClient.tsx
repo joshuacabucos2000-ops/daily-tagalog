@@ -53,9 +53,11 @@ function localDate() {
 
 export default function PracticeClient({
   initialReviews,
+  unlockedLessonIds,
   sessionStartedAt,
 }: {
   initialReviews: StoredReview[];
+  unlockedLessonIds: string[];
   sessionStartedAt: string;
 }) {
   const reviewMap = useMemo(
@@ -64,13 +66,16 @@ export default function PracticeClient({
   );
   const queue = useMemo(() => {
     const now = new Date(sessionStartedAt).getTime();
-    const due = vocabulary.filter(item => {
+    const availableVocabulary = vocabulary.filter(item =>
+      unlockedLessonIds.includes(item.lessonId),
+    );
+    const due = availableVocabulary.filter(item => {
       const review = reviewMap.get(item.id);
       return review && new Date(review.due_at).getTime() <= now;
     });
-    const fresh = vocabulary.filter(item => !reviewMap.has(item.id));
+    const fresh = availableVocabulary.filter(item => !reviewMap.has(item.id));
     return [...due, ...fresh].slice(0, 8);
-  }, [reviewMap, sessionStartedAt]);
+  }, [reviewMap, sessionStartedAt, unlockedLessonIds]);
 
   const [stage, setStage] = useState<SessionStage>(queue.length ? 'review' : 'listening');
   const [reviewIndex, setReviewIndex] = useState(0);

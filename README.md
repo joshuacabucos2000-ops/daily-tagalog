@@ -11,6 +11,7 @@ A cloud-backed conversational Tagalog learning app built with Next.js and Supaba
 - Daily spaced-repetition vocabulary reviews
 - Listening practice using the Filipino voice available on the learner's device
 - Short reading comprehension sessions with saved daily results
+- Three beginner lessons covering daily life, introductions, and restaurant ordering
 - Responsive mobile and desktop layout
 
 ## Environment variables

@@ -36,16 +36,26 @@ export default async function Dashboard() {
   if (!user) redirect('/login');
 
   const [progressResult, reviewsResult, activitiesResult] = await Promise.all([
-    supabase.from('progress').select('percent_complete').eq('lesson_id', 'lesson-1').maybeSingle(),
+    supabase.from('progress').select('lesson_id,percent_complete'),
     supabase.from('vocabulary_reviews').select('vocabulary_id,due_at'),
     supabase.from('daily_activity').select('activity_date,vocabulary_reviews,listening_correct,listening_total,reading_correct,reading_total').order('activity_date', { ascending: false }).limit(35),
   ]);
-  const progress = progressResult.data?.percent_complete ?? 0;
+  const progressByLesson = new Map(
+    (progressResult.data ?? []).map(progress => [progress.lesson_id, progress.percent_complete]),
+  );
   const reviews = reviewsResult.data ?? [];
   const activities = (activitiesResult.data ?? []) as Activity[];
   const reviewedIds = new Set(reviews.map(review => review.vocabulary_id));
+  const unlockedLessonIds = new Set([
+    'lesson-1',
+    ...(progressResult.data ?? [])
+      .filter(progress => progress.percent_complete > 0)
+      .map(progress => progress.lesson_id),
+  ]);
   const overdue = reviews.filter(review => new Date(review.due_at) <= new Date()).length;
-  const newWords = vocabulary.filter(word => !reviewedIds.has(word.id)).length;
+  const newWords = vocabulary.filter(word =>
+    unlockedLessonIds.has(word.lessonId) && !reviewedIds.has(word.id),
+  ).length;
   const dueCount = Math.min(8, overdue + newWords);
   const today = activities.find(activity => activity.activity_date === dateKey(new Date()));
   const streak = calculateStreak(activities);
@@ -81,7 +91,22 @@ export default async function Dashboard() {
       </section>
 
       <div className="dashboard-grid">
-        <ProgressClient initial={progress} lesson={lessons[0]}/>
+        <section>
+          <div className="course-heading">
+            <div><p className="tiny eyebrow">BEGINNER COURSE</p><h2>Your lessons</h2></div>
+            <span className="tiny">{lessons.filter(lesson => progressByLesson.get(lesson.id) === 100).length} of {lessons.length} complete</span>
+          </div>
+          <div className="course-list">
+            {lessons.map(lesson => (
+              <ProgressClient
+                compact
+                initial={progressByLesson.get(lesson.id) ?? 0}
+                lesson={lesson}
+                key={lesson.id}
+              />
+            ))}
+          </div>
+        </section>
         <aside className="card">
           <h3>Today</h3>
           {today ? (
