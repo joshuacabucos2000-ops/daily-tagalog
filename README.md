@@ -7,11 +7,11 @@ A cloud-backed conversational Tagalog learning app built with Next.js and Supaba
 - Email/password accounts through Supabase Auth
 - Protected dashboard
 - Cloud-synced lesson progress
-- Interactive Lesson 1: vocabulary, grammar, translation practice, reading, and speaking prompt
+- Interactive lessons with vocabulary, grammar, translation practice, reading, and speaking prompts
 - Daily spaced-repetition vocabulary reviews
 - Listening practice using the Filipino voice available on the learner's device
 - Short reading comprehension sessions with saved daily results
-- Three beginner lessons covering daily life, introductions, and restaurant ordering
+- A 30-lesson first-month beginner course covering daily life, practical conversations, listening, and reading
 - Responsive mobile and desktop layout
 
 ## Environment variables
@@ -36,7 +36,8 @@ schema changes; existing progress is preserved.
 - `app/` contains the pages and route handlers used by Next.js.
 - `components/` contains shared interface components.
 - `components/lesson/` contains the reusable lesson experience.
-- `lib/content/lessons.ts` contains typed lesson definitions.
+- `lib/content/lessons.ts` contains the core typed lesson definitions.
+- `lib/content/month-one.ts` contains Lessons 4–30 and their vocabulary.
 - `lib/supabase/` contains the browser, server, and configuration helpers.
 - `schema.sql` contains the database setup and row-level security policies.
 

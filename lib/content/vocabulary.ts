@@ -1,3 +1,5 @@
+import { monthOneVocabulary } from './month-one';
+
 export type VocabularyItem = {
   id: string;
   lessonId: string;
@@ -26,6 +28,7 @@ export const vocabulary: VocabularyItem[] = [
   { id: 'tubig', lessonId: 'lesson-3', tagalog: 'tubig', english: 'water', example: 'Pahingi po ng tubig.', exampleEnglish: 'May I have some water, please?' },
   { id: 'masarap', lessonId: 'lesson-3', tagalog: 'masarap', english: 'delicious', example: 'Masarap ang adobo.', exampleEnglish: 'The adobo is delicious.' },
   { id: 'bayad', lessonId: 'lesson-3', tagalog: 'bayad', english: 'payment / bill', example: 'Pahingi po ng bill.', exampleEnglish: 'May I have the bill, please?' },
+  ...monthOneVocabulary,
 ];
 
 export const listeningPrompts = [

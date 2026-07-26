@@ -1,4 +1,5 @@
 import { vocabulary, type VocabularyItem } from './vocabulary';
+import { monthOneLessons } from './month-one';
 
 export type LessonQuestion = {
   prompt: string;
@@ -226,6 +227,7 @@ export const lessons: LessonDefinition[] = [
       exampleEnglish: 'I will order adobo and rice. May I also have some water?',
     },
   },
+  ...monthOneLessons,
 ];
 
 export function getLesson(lessonId: string) {
