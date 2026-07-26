@@ -1,27 +1,15 @@
 'use client';
 
 import Link from 'next/link';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import type { LessonDefinition } from '@/lib/content/lessons';
+import { prepareFilipinoVoices, speakTagalog } from '@/lib/speech';
 
 type Stage = 0 | 1 | 2 | 3 | 4;
 
 function normalise(value: string) {
   return value.toLowerCase().trim().replace(/[.,!?]/g, '').replace(/\s+/g, ' ');
-}
-
-function speak(text: string, rate = 0.82) {
-  if (!('speechSynthesis' in window)) return;
-  window.speechSynthesis.cancel();
-  const utterance = new SpeechSynthesisUtterance(text);
-  utterance.lang = 'fil-PH';
-  utterance.rate = rate;
-  const voice = window.speechSynthesis.getVoices().find(item =>
-    /^(fil|tl)(-|_)/i.test(item.lang),
-  );
-  if (voice) utterance.voice = voice;
-  window.speechSynthesis.speak(utterance);
 }
 
 export default function LessonExperience({
@@ -43,6 +31,10 @@ export default function LessonExperience({
   const [checked, setChecked] = useState(false);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState('');
+
+  useEffect(() => {
+    prepareFilipinoVoices();
+  }, []);
 
   const progress = stage * 25;
   const score = useMemo(
@@ -154,7 +146,7 @@ export default function LessonExperience({
           </div>
           <div className="vocab-audio-list">
             {lesson.vocabulary.map(word => (
-              <button className="audio-button" key={word.id} onClick={() => speak(word.example)}>
+              <button className="audio-button" key={word.id} onClick={() => speakTagalog(word.example)}>
                 ▶ {word.example}
               </button>
             ))}
@@ -228,7 +220,7 @@ export default function LessonExperience({
           <p className="tiny eyebrow">SHORT STORY</p>
           <h2>{lesson.story.title}</h2>
           <div className="story"><p>{lesson.story.tagalog}</p></div>
-          <button className="audio-button story-audio" onClick={() => speak(lesson.story.tagalog)}>▶ Listen to the story</button>
+          <button className="audio-button story-audio" onClick={() => speakTagalog(lesson.story.tagalog)}>▶ Listen to the story</button>
           <details><summary>Show English translation</summary><p>{lesson.story.english}</p></details>
           <div className="conversation-box">
             <p className="tiny eyebrow">SPEAKING PROMPT</p>

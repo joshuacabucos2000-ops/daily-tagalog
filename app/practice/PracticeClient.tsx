@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import {
   listeningPrompts,
@@ -10,6 +10,7 @@ import {
   type VocabularyItem,
 } from '@/lib/content/vocabulary';
 import { scheduleReview, type ReviewRating } from '@/lib/spaced-repetition';
+import { prepareFilipinoVoices, speakTagalog } from '@/lib/speech';
 
 export type StoredReview = {
   vocabulary_id: string;
@@ -29,21 +30,6 @@ const reviewLabels: Record<ReviewRating, { label: string; hint: string }> = {
   good: { label: 'Good', hint: 'Later' },
   easy: { label: 'Easy', hint: 'Much later' },
 };
-
-function speak(text: string, rate = 0.82) {
-  if (!('speechSynthesis' in window)) return false;
-  window.speechSynthesis.cancel();
-  const utterance = new SpeechSynthesisUtterance(text);
-  utterance.lang = 'fil-PH';
-  utterance.rate = rate;
-  const voices = window.speechSynthesis.getVoices();
-  const filipinoVoice = voices.find(voice =>
-    /^(fil|tl)(-|_)/i.test(voice.lang),
-  );
-  if (filipinoVoice) utterance.voice = filipinoVoice;
-  window.speechSynthesis.speak(utterance);
-  return true;
-}
 
 function localDate() {
   const now = new Date();
@@ -85,6 +71,10 @@ export default function PracticeClient({
   const [listeningAnswers, setListeningAnswers] = useState<number[]>([]);
   const [readingAnswers, setReadingAnswers] = useState<number[]>([]);
   const [listeningIndex, setListeningIndex] = useState(0);
+
+  useEffect(() => {
+    prepareFilipinoVoices();
+  }, []);
 
   const currentWord: VocabularyItem | undefined = queue[reviewIndex];
   const listeningCorrect = listeningAnswers.reduce(
@@ -203,7 +193,7 @@ export default function PracticeClient({
           <div className="review-word">
             <p className="tiny eyebrow">WHAT DOES THIS MEAN?</p>
             <h2>{currentWord.tagalog}</h2>
-            <button className="audio-button" onClick={() => speak(currentWord.tagalog)} aria-label={`Listen to ${currentWord.tagalog}`}>▶ Listen</button>
+            <button className="audio-button" onClick={() => speakTagalog(currentWord.tagalog)} aria-label={`Listen to ${currentWord.tagalog}`}>▶ Listen</button>
           </div>
           {!revealed ? (
             <button className="button reveal-button" onClick={() => setRevealed(true)}>Reveal answer</button>
@@ -238,8 +228,8 @@ export default function PracticeClient({
             <div className="headphones">🎧</div>
             <h2>Listen before you read.</h2>
             <p>Play the sentence as many times as you need.</p>
-            <button className="button audio-primary" onClick={() => speak(listeningPrompts[listeningIndex].spoken)}>▶ Play Tagalog</button>
-            <button className="audio-button" onClick={() => speak(listeningPrompts[listeningIndex].spoken, 0.65)}>Play slowly</button>
+            <button className="button audio-primary" onClick={() => speakTagalog(listeningPrompts[listeningIndex].spoken)}>▶ Play Tagalog</button>
+            <button className="audio-button" onClick={() => speakTagalog(listeningPrompts[listeningIndex].spoken, 0.72)}>Play slowly</button>
           </div>
           <fieldset className="choice-list">
             <legend>{listeningPrompts[listeningIndex].question}</legend>
@@ -251,7 +241,7 @@ export default function PracticeClient({
             ))}
           </fieldset>
           <div className="lesson-actions">
-            <span className="tiny">Audio uses the Filipino voice available on your device.</span>
+            <span className="tiny">Audio uses the best Filipino voice available on your device.</span>
             <button className="button" disabled={listeningAnswers[listeningIndex] === undefined} onClick={() => {
               if (listeningIndex === listeningPrompts.length - 1) setStage('reading');
               else setListeningIndex(index => index + 1);

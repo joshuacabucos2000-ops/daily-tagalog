@@ -9,6 +9,7 @@ export type LessonQuestion = {
 export type LessonDefinition = {
   id: string;
   number: number;
+  topic: string;
   category: string;
   title: string;
   description: string;
@@ -42,6 +43,7 @@ export const lessons: LessonDefinition[] = [
   {
     id: 'lesson-1',
     number: 1,
+    topic: 'Daily routines',
     category: 'Everyday conversation',
     title: 'Talking about your day',
     description: 'Learn useful daily verbs, understand na and pa, then practise a short conversation.',
@@ -103,6 +105,7 @@ export const lessons: LessonDefinition[] = [
   {
     id: 'lesson-2',
     number: 2,
+    topic: 'Greetings',
     category: 'Meeting people',
     title: 'Introducing yourself',
     description: 'Share your name, where you are from, where you live, and a little about your life.',
@@ -164,6 +167,7 @@ export const lessons: LessonDefinition[] = [
   {
     id: 'lesson-3',
     number: 3,
+    topic: 'Restaurant',
     category: 'At a restaurant',
     title: 'Ordering food politely',
     description: 'Order a meal and drink, respond to a server, and ask for the bill politely.',

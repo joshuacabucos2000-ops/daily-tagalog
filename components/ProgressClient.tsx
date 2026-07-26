@@ -27,7 +27,7 @@ export default function ProgressClient({
     <article className={`card lesson-card ${compact ? 'compact' : ''}`}>
       <div className="card-heading-row">
         <div><p className="tiny eyebrow">TODAY&apos;S LESSON</p><h2>{lesson.title}</h2></div>
-        <span className="lesson-number">{String(lesson.number).padStart(2, '0')}</span>
+        <span className="lesson-topic">{lesson.topic}</span>
       </div>
       <p>{lesson.description}</p>
       <div className="progress"><span style={{ width: `${initial}%` }} /></div>
