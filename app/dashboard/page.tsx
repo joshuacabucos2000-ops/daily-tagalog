@@ -4,6 +4,7 @@ import { createClient } from '@/lib/supabase/server';
 import ProgressClient from '@/components/ProgressClient';
 import { vocabulary } from '@/lib/content/vocabulary';
 import { lessons } from '@/lib/content/lessons';
+import MonthlyProgressCalendar from '@/components/MonthlyProgressCalendar';
 
 type Activity = {
   activity_date: string;
@@ -36,7 +37,7 @@ export default async function Dashboard() {
   if (!user) redirect('/login');
 
   const [progressResult, reviewsResult, activitiesResult] = await Promise.all([
-    supabase.from('progress').select('lesson_id,percent_complete'),
+    supabase.from('progress').select('lesson_id,percent_complete,updated_at'),
     supabase.from('vocabulary_reviews').select('vocabulary_id,due_at'),
     supabase.from('daily_activity').select('activity_date,vocabulary_reviews,listening_correct,listening_total,reading_correct,reading_total').order('activity_date', { ascending: false }).limit(35),
   ]);
@@ -59,6 +60,10 @@ export default async function Dashboard() {
   const dueCount = Math.min(8, overdue + newWords);
   const today = activities.find(activity => activity.activity_date === dateKey(new Date()));
   const streak = calculateStreak(activities);
+  const calendarDates = Array.from(new Set([
+    ...activities.map(activity => activity.activity_date),
+    ...(progressResult.data ?? []).map(progress => dateKey(new Date(progress.updated_at))),
+  ]));
   const username = user.user_metadata?.username || user.email?.split('@')[0] || 'Learner';
 
   async function signOut() {
@@ -116,6 +121,8 @@ export default async function Dashboard() {
               <p><strong>{today.reading_correct}/{today.reading_total}</strong> reading</p>
             </>
           ) : <p className="tiny">No practice recorded yet. Your daily session is ready when you are.</p>}
+          <hr/>
+          <MonthlyProgressCalendar activityDates={calendarDates} now={new Date().toISOString()} />
           <hr/>
           <h3>Phrase of the day</h3>
           <p><strong>Kumusta ang araw mo?</strong></p>
