@@ -8,6 +8,9 @@ A cloud-backed conversational Tagalog learning app built with Next.js and Supaba
 - Protected dashboard
 - Cloud-synced lesson progress
 - Interactive Lesson 1: vocabulary, grammar, translation practice, reading, and speaking prompt
+- Daily spaced-repetition vocabulary reviews
+- Listening practice using the Filipino voice available on the learner's device
+- Short reading comprehension sessions with saved daily results
 - Responsive mobile and desktop layout
 
 ## Environment variables
@@ -24,7 +27,8 @@ missing.
 
 ## Supabase setup
 
-Run `schema.sql` once in the Supabase SQL Editor.
+Run `schema.sql` in the Supabase SQL Editor. It is safe to run again when the
+schema changes; existing progress is preserved.
 
 ## Project structure
 
