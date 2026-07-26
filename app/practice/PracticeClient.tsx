@@ -229,7 +229,7 @@ export default function PracticeClient({
             <h2>Listen before you read.</h2>
             <p>Play the sentence as many times as you need.</p>
             <button className="button audio-primary" onClick={() => speakTagalog(listeningPrompts[listeningIndex].spoken)}>▶ Play Tagalog</button>
-            <button className="audio-button" onClick={() => speakTagalog(listeningPrompts[listeningIndex].spoken, 0.72)}>Play slowly</button>
+            <button className="audio-button" onClick={() => speakTagalog(listeningPrompts[listeningIndex].spoken, 0.7)}>Play slowly</button>
           </div>
           <fieldset className="choice-list">
             <legend>{listeningPrompts[listeningIndex].question}</legend>
