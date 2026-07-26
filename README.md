@@ -12,16 +12,26 @@ A cloud-backed conversational Tagalog learning app built with Next.js and Supaba
 
 ## Environment variables
 
-Create these in `.env.local` locally and in the Vercel project settings:
+Copy the included example file, then replace the placeholders with credentials
+from the Supabase project:
 
 ```bash
-NEXT_PUBLIC_SUPABASE_URL=https://YOUR_PROJECT.supabase.co
-NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=YOUR_PUBLISHABLE_KEY
+cp .env.example .env.local
 ```
+
+The application reports a clear configuration error if either required value is
+missing.
 
 ## Supabase setup
 
 Run `schema.sql` once in the Supabase SQL Editor.
+
+## Project structure
+
+- `app/` contains the pages and route handlers used by Next.js.
+- `components/` contains shared interface components.
+- `lib/supabase/` contains the browser, server, and configuration helpers.
+- `schema.sql` contains the database setup and row-level security policies.
 
 ## Development
 
@@ -30,8 +40,9 @@ npm install
 npm run dev
 ```
 
-## Production check
+## Quality checks
 
 ```bash
+npm run lint
 npm run build
 ```
