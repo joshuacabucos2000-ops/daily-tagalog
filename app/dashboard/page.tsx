@@ -5,6 +5,7 @@ import ProgressClient from '@/components/ProgressClient';
 import { vocabulary } from '@/lib/content/vocabulary';
 import { lessons } from '@/lib/content/lessons';
 import MonthlyProgressCalendar from '@/components/MonthlyProgressCalendar';
+import AppMenu from '@/components/AppMenu';
 
 type Activity = {
   activity_date: string;
@@ -75,7 +76,7 @@ export default async function Dashboard() {
 
   return (
     <main className="shell">
-      <nav className="nav"><Link className="brand" href="/dashboard">Daily Tagalog</Link><form action={signOut}><button className="button secondary">Sign out</button></form></nav>
+      <nav className="nav"><div className="nav-start"><AppMenu /><Link className="brand" href="/dashboard">Daily Tagalog</Link></div><form action={signOut}><button className="button secondary">Sign out</button></form></nav>
       <div className="dash-head">
         <div><p className="tiny eyebrow">MAGANDANG ARAW</p><h1>Welcome, {username}!</h1><p>A little practice today keeps yesterday’s Tagalog within reach.</p></div>
         <div className="card streak-card"><strong>🔥 {streak} {streak === 1 ? 'day' : 'days'}</strong><div className="tiny">Current streak</div></div>
@@ -96,7 +97,7 @@ export default async function Dashboard() {
       </section>
 
       <div className="dashboard-grid">
-        <section>
+        <section id="lessons">
           <div className="course-heading">
             <div><p className="tiny eyebrow">BEGINNER COURSE</p><h2>Your lessons</h2></div>
             <span className="tiny">{lessons.filter(lesson => progressByLesson.get(lesson.id) === 100).length} of {lessons.length} complete</span>
