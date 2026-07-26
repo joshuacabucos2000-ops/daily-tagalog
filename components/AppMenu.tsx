@@ -5,7 +5,12 @@ const menuItems = [
   { href: '/dashboard#lessons', icon: '▤', label: 'Lessons' },
   { href: '/practice', icon: '◎', label: 'Daily practice' },
   { href: '/vocabulary', icon: 'A', label: 'Vocabulary bank' },
-  { href: '/translator', icon: '⇄', label: 'English ↔ Filipino' },
+  {
+    href: 'https://translate.google.com/?sl=en&tl=tl&op=translate',
+    icon: '⇄',
+    label: 'English ↔ Filipino',
+    external: true,
+  },
 ];
 
 export default function AppMenu() {
@@ -16,7 +21,12 @@ export default function AppMenu() {
       </summary>
       <nav className="menu-panel" aria-label="Main navigation">
         <p className="tiny eyebrow">LEARN</p>
-        {menuItems.map(item => (
+        {menuItems.map(item => item.external ? (
+          <a href={item.href} target="_blank" rel="noreferrer" key={item.href}>
+            <span aria-hidden="true">{item.icon}</span>
+            {item.label} <small aria-hidden="true">↗</small>
+          </a>
+        ) : (
           <Link href={item.href} key={item.href}>
             <span aria-hidden="true">{item.icon}</span>
             {item.label}
