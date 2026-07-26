@@ -34,8 +34,16 @@ schema changes; existing progress is preserved.
 
 - `app/` contains the pages and route handlers used by Next.js.
 - `components/` contains shared interface components.
+- `components/lesson/` contains the reusable lesson experience.
+- `lib/content/lessons.ts` contains typed lesson definitions.
 - `lib/supabase/` contains the browser, server, and configuration helpers.
 - `schema.sql` contains the database setup and row-level security policies.
+
+## Adding a lesson
+
+Add another typed lesson definition to `lib/content/lessons.ts`. The dynamic
+`/lesson/[lessonId]` route automatically supplies the shared vocabulary,
+grammar, exercise, reading, audio, progress, and completion experience.
 
 ## Development
 

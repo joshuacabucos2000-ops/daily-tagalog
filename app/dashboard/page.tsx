@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
 import ProgressClient from '@/components/ProgressClient';
 import { vocabulary } from '@/lib/content/vocabulary';
+import { lessons } from '@/lib/content/lessons';
 
 type Activity = {
   activity_date: string;
@@ -80,7 +81,7 @@ export default async function Dashboard() {
       </section>
 
       <div className="dashboard-grid">
-        <ProgressClient initial={progress}/>
+        <ProgressClient initial={progress} lesson={lessons[0]}/>
         <aside className="card">
           <h3>Today</h3>
           {today ? (
